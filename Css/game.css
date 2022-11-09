@@ -1,0 +1,39 @@
+.grid{
+    display: grid;
+    width: 100%;
+    max-width: 800px;
+    grid-template-columns: repeat(6, 1fr);
+    grid-gap: 5px;
+    perspective: 1000px;
+    margin: 30px auto;
+}
+.card{
+    width: 100%;
+    aspect-ratio: 3/4;
+    border-radius: 5px;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: 1s;
+}
+.reveal-card{
+    transform: rotateY(180deg);
+}
+.face{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    border-radius: 10px;
+    background-size: cover;
+    background-position: center;
+    border: 2px solid white;
+}
+.front{
+    transform: rotateY(180deg);
+}
+.back{
+    background-image: url(../imagens/back2.jpg);
+    backface-visibility: hidden;
+}
+body{
+    background-color: black;
+}
