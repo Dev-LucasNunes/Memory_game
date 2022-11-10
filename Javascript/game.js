@@ -2,6 +2,10 @@
 
 //agora vou criar um array com os nomes das cartas, tem que ser igual está na imagem
 
+const spanPlayer = document.querySelector('.player')
+const timer = document.querySelector('.Timer')
+
+
 const grid = document.querySelector('.grid');
 
 const characters = [
@@ -29,15 +33,50 @@ const createElement = (tag, className) => {
 let firstCard = "";
 let secondCard = "";
 
+const checkEndGame = () => {
+    const disabledCard = document.querySelectorAll('.disabled-card');
+    if(disabledCard.length === 24){
+        setTimeout(() => {
+            clearInterval(this.loop);
+            alert(`Parabéns ${spanPlayer.innerHTML}, seu tempo foi: ${timer.innerHTML} segundos`);
+        }, 1200)
+
+    }
+}
+
 const checkCards = () => {
     const firstCharacter = firstCard.getAttribute('data-character');
     const secondCharacter = secondCard.getAttribute('data-character');
 
     if(firstCharacter === secondCharacter){
 
+        setTimeout(() => {
+        firstCard.firstChild.classList.add('disabled-card')
+        secondCard.firstChild.classList.add('disabled-card')
+
+        firstCard = "";
+        secondCard = "";
+
+        checkEndGame()
+
+    }, 1000);
+
+
+
+
+
 
     }else{
-        firstCard.classList.remove('reveal-card')
+
+        setTimeout(() => {
+
+            firstCard.classList.remove('reveal-card');
+            secondCard.classList.remove('reveal-card');
+
+            firstCard = "";
+            secondCard = "";
+
+        }, 1000);//errou espera 500 milisegundos e esconde a carta de novo porque senão antes de vc virar a carta ele ja sabe que vc errou e não deixa a carta virar
     }
 }
 
@@ -106,6 +145,29 @@ const loadGame = () => {
     });
 }
 
-loadGame();
+const startTimer = () => {
+
+    this.loop = setInterval(() => {
+
+        const currentTimer = +timer.innerHTML;
+        timer.innerHTML = currentTimer + 1
+
+    }, 1000)
+}
+
+window.onload = () => {
+
+    spanPlayer.innerHTML = localStorage.getItem('Player');
+
+    startTimer()
+    loadGame();
+
+}
+
+
+
+
+
+
 
 
